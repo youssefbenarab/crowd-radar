@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.slim.js" integrity="sha256-dWvV84T6BhzO4vG6gWhsWVKVoa4lVmLnpBOZh/CAHU4=" crossorigin="anonymous"></script>
+</head>
+<body>
+    
+<div class="container">
+<h1>East Dining Hall Metrics</h1>
+
+<!-- <iframe src="https://ezdata.m5stack.com/share/?type=chart&sid=qjdcBa5Fus6R9hymZZTEnPvbibFMKJ4l" height="150px" width="300px"  frameborder="0"></iframe> -->
+
+<div class="infolist">
+<div class="textgrp">
+  <h2>Est #people</h2>
+  <h3 id="people">30 people</h3>
+</div>
+<hr>
+<div class="textgrp">
+  <h2>Noise Level</h2>
+  <h3 id="noiselevel">20 dB - Noisy</h3>
+</div>
+<hr>
+<div class="textgrp">
+  <h2>Crowd State</h2>
+  <h3 id="crowd">Crowded</h3>
+</div>
+
+</div>
+
+
+<p>We suggest to avoid the dining hall at this time!</p>
+</div>
+</body>
+
+<!-- 
+<h1>Number of people </h1>
+
+
+<h1 id="number"></h1> -->
+
+
+<script>
+fetch('https://ezdata.m5stack.com/api/store/wde8kZ5nHZfoGfNQ41CfqY1jDkiPo8lW/mic')
+  .then(response => response.json())
+  .then(data => {
+    console.log(data );
+    $("#noiselevel").html(data.data + " dB");
+
+  })
+  .catch(error => console.error(error));
+
+  fetch('https://ezdata.m5stack.com/api/store/wde8kZ5nHZfoGfNQ41CfqY1jDkiPo8lW/people')
+  .then(response => response.json())
+  .then(data => {
+    console.log(data );
+    $("#people").html(data.data + " people");
+
+  })
+  .catch(error => console.error(error));
+
+  fetch('https://ezdata.m5stack.com/api/store/wde8kZ5nHZfoGfNQ41CfqY1jDkiPo8lW/frequency')
+  .then(response => response.json())
+  .then(data => {
+    console.log(data );
+if(data.data>10){
+  $("#crowd").html("Moderate");
+}else{
+  $("#crowd").html("Crowded");
+}
+
+  })
+  .catch(error => console.error(error));
+
+
+
+
+</script>
+<style>
+@font-face {
+  font-family: argentum;
+  src: url(ArgentumSans-Black.ttf);
+}
+body{
+background-image: url("bg.png");
+background-size: cover;
+display: flex;
+font-family: argentum;
+justify-content: center;
+}
+
+
+.container{
+background-color: white;
+width: 50%;
+margin-top: 19vh;
+height: 50vh;
+border-radius: 45px;
+padding-top: 10px;
+text-align: center;
+}
+
+.infolist{
+display: flex;
+margin-top: 60px;
+}
+
+.textgrp{
+  width: 30%;
+}
+
+h3{
+  font-size: 30px;
+  color: rgb(16, 167, 222);
+}
+
+#noiselevel{
+  color: brown;
+}
+
+
+@media only screen and (max-width: 800px) {
+ 
+.container{
+width: 90%;
+height: 80vh;
+margin-top: 10vh;
+}
+
+
+.infolist{
+  flex-direction: column;
+width: 100%;
+
+}
+
+.textgrp{
+  width: 100%;
+}
+
+}
+
+
+
+
+</style>
+
+</html>
